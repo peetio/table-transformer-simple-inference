@@ -24,6 +24,9 @@ sys.path.append("src")
 from models import build_model
 import datasets.transforms as R
 
+logging.basicConfig(
+    format="%(asctime)s | %(levelname)s: %(message)s", level=logging.NOTSET
+)
 #   TODO: document this code
 #   TODO: remove everything that is not needed!
 def cells_to_dataframe(cells):
@@ -158,7 +161,8 @@ def visualize_structure(image, objs):
     image = np.array(image)
     for obj in objs:
         xmin, ymin, xmax, ymax = obj["bbox"]
-        cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (0, 255, 0), 2)
+        cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (245, 105, 66), 2)
+    image = image[:, :, ::-1].copy()
     return image
 
 #   Source file: postprocess.py (align_columns & align_rows)
@@ -280,13 +284,14 @@ class TableInformer:
         #   conversion to objects w/ score threshold
         objs = predictions_to_objects(results, threshold, get_class_map(key="index"))
 
-        #   alignment to table borders of columns and rows
+        #   align columns and rows to table border
         xmin, ymin, xman, ymax = padding, padding, w - padding, h - padding
         table_bbox = [xmin, ymin, xman, ymax]
         objs = border_align(objs, table_bbox)
 
-        #   fix overlapping and prepare for cell deduction
+        #   fix overlapping and align objects
         objs = structure_table(objs, table_bbox)
+
         #   keep only the columns and rows 
         objs = filter_cols_and_rows(objs)
         
@@ -297,12 +302,14 @@ class TableInformer:
 
         if debug:
             visualization = visualize_structure(image, objs)
-            cv2.imwrite("visualization.jpg", visualization)
+            out_path = "./visualization.jpg"
+            cv2.imwrite(out_path, visualization)
+            logging.info(f"Visualization can be found at '{out_path}'.")
 
         return results
             
 # MAIN
 weight_path = "pubtables1m_structure_detr_r18.pth"
 model = TableInformer(weight_path)
-image_path = "table_img.jpg"
+image_path = "example_table.jpg"
 output = model.predict(image_path)
