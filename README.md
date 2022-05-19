@@ -62,6 +62,7 @@ export TESSDATA_PREFIX=/home/user/tessdata
 
 ### Pre-trained Model Weights
 Assuming that you have already cropped out the table after table detection, you can use the pre-trained model below for table structure reocgnition. Put the model in the root of this repository after the download has finished or change the path to the model in the code.
+
 <b>Table Structure Recognition:</b>
 <table>
   <thead>
