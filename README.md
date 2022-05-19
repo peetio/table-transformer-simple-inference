@@ -97,6 +97,12 @@ Assuming that you have already cropped out the table after table detection, you 
 </table>
 
 
+## Running Things Locally
+You can run the main.py script which will use the 'example_table.jpg' as input to the model and output 'visualization.jpg' containing the visualization of the predictions on the original image.
+
+```bash
+python main.py
+```
 
 ## Official Repository
 The official repository can be found [here](https://github.com/microsoft/table-transformer). If you want to extract more complex tables you will have to add the appropriate post-processing yourself, but you can use the official source code as a reference. :)
