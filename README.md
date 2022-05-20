@@ -1,4 +1,4 @@
-> :warning: **Read before using**: If you wait two more days the code will be refactored and more intuitive. Up until now it was only used for experimenting purposes but apparently it's useful for other people as well.
+> :warning: **Read before using**: If you wait two more days (counting from 21st of May) the code will be refactored and more intuitive. Up until now it was only used for experimenting purposes but apparently it's useful for other people as well.
 
 # Table Transformer Simple Inference
 This repository contains code to run simple inference and export the cells of a table (incl. text in cell), as a pandas DataFrame. Note that not all the features that the official repository offers are included. The resulting DataFrame is constructed based on the column and row predictions, and will probably not work on complex tables. The repo is built on top of [this](https://github.com/phamquiluan/table-transformer) fork of the official repo.
